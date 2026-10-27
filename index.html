@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WOPR Core Console</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Glitch Matrix Screen Layer -->
+<div class="glitch-overlay" id="matrix-glitch"></div>
+
+<div class="terminal-container" onclick="document.getElementById('cli-input').focus()">
+    <div class="output-history" id="cli-output">--- WOPR MULTI-FRAME SYSTEM ONLINE ---
+LOG IN BY PROVIDING YOUR IDENTITY SYSTEM SPECIFICATION.
+    </div>
+    <div class="input-line">
+        <span class="prompt-symbol">&gt;</span>
+        <input type="text" id="cli-input" class="terminal-input" autofocus autocomplete="off" spellcheck="false">
+    </div>
+
+    <!-- Internet Code Popup Browser Window -->
+    <div class="popup-window" id="internet-browser">
+        <div class="popup-header">
+            <span>Core Network View: /sys/net/tcp_stack.c</span>
+            <button class="popup-close" onclick="closeBrowser()">X</button>
+        </div>
+        <div class="popup-body">
+            <div class="code-tabs">
+                <button class="tab-btn active" onclick="switchTab('network')">Network Stack (C)</button>
+                <button class="tab-btn" onclick="switchTab('frontend')">Terminal Source (JS)</button>
+            </div>
+            
+            <!-- Real Production Networking Code (C Stack) -->
+            <pre id="code-network-view" class="code-pane active">
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/socket.h&gt;
+#include &lt;netinet/in.h&gt;
+#include &lt;arpa/inet.h&gt;
+
+#define PORT 8080
+#define BACKLOG 10
+
+int main() {
+    int server_fd, new_socket;
+    struct sockaddr_in address;
+    int opt = 1;
+    int addrlen = sizeof(address);
+    char buffer[1024] = {0};
+    char *ack_payload = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\nConnection Established.";
+
+    // 1. Instantiating IPv4 TCP Stream Socket
+    if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0) {
+        perror("Socket creation sequence failed");
+        exit(EXIT_FAILURE);
+    }
+
+    // 2. Setting master socket options to allow address reuse
+    if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt))) {
+        perror("setsockopt configuration mismatch");
+        exit(EXIT_FAILURE);
+    }
+
+    address.sin_family = AF_INET;
+    address.sin_addr.s_addr = INADDR_ANY; // Bind to local network interfaces
+    address.sin_port = htons(PORT);     // Convert port value to network byte order
+
+    // 3. Binding structural configurations to descriptor address
+    if (bind(server_fd, (struct sockaddr *)&address, sizeof(address)) < 0) {
+        perror("Binding initialization failed");
+        exit(EXIT_FAILURE);
+    }
+
+    // 4. Initiating listener queue thresholds
+    if (listen(server_fd, BACKLOG) < 0) {
+        perror("Listen state execution error");
+        exit(EXIT_FAILURE);
+    }
+
+    // 5. Execution loop accepting incoming connections
+    while(1) {
+        if ((new_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t*)&addrlen)) < 0) {
+            perror("Accept failure");
+            continue;
+        }
+        read(new_socket, buffer, 1024);
+        send(new_socket, ack_payload, strlen(ack_payload), 0);
+        close(new_socket);
+    }
+    return 0;
+}</pre>
+            
+            <!-- Dynamic Code Inspector Pane -->
+            <pre id="code-frontend-view" class="code-pane"></pre>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
