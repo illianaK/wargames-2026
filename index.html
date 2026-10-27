@@ -13,8 +13,11 @@
 
 <div class="terminal-container" onclick="document.getElementById('cli-input').focus()">
     <div class="output-history" id="cli-output">--- WOPR MULTI-FRAME SYSTEM ONLINE ---
-LOG IN BY PROVIDING YOUR IDENTITY SYSTEM SPECIFICATION.
-    </div>
+LOG IN BY PROVIDING YOUR IDENTITY SYSTEM SPECIFICATION.</div>
+    
+    <!-- Dynamic Galaga Canvas Frame -->
+    <canvas id="galaga-canvas" width="600" height="300"></canvas>
+
     <div class="input-line">
         <span class="prompt-symbol">&gt;</span>
         <input type="text" id="cli-input" class="terminal-input" autofocus autocomplete="off" spellcheck="false">
@@ -67,24 +70,24 @@ int main() {
     }
 
     address.sin_family = AF_INET;
-    address.sin_addr.s_addr = INADDR_ANY; // Bind to local network interfaces
-    address.sin_port = htons(PORT);     // Convert port value to network byte order
+    address.sin_addr.s_addr = INADDR_ANY; 
+    address.sin_port = htons(PORT);     
 
     // 3. Binding structural configurations to descriptor address
-    if (bind(server_fd, (struct sockaddr *)&address, sizeof(address)) < 0) {
+    if (bind(server_fd, (struct sockaddr *)&address, sizeof(address)) &lt; 0) {
         perror("Binding initialization failed");
         exit(EXIT_FAILURE);
     }
 
     // 4. Initiating listener queue thresholds
-    if (listen(server_fd, BACKLOG) < 0) {
+    if (listen(server_fd, BACKLOG) &lt; 0) {
         perror("Listen state execution error");
         exit(EXIT_FAILURE);
     }
 
     // 5. Execution loop accepting incoming connections
     while(1) {
-        if ((new_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t*)&addrlen)) < 0) {
+        if ((new_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t*)&addrlen)) &lt; 0) {
             perror("Accept failure");
             continue;
         }
