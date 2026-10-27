@@ -1,0 +1,167 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    background-color: #000;
+    color: #00ffcc;
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+.terminal-container {
+    width: 90%;
+    max-width: 800px;
+    height: 80%;
+    border: 2px solid #005544;
+    box-shadow: 0 0 20px #003322;
+    border-radius: 8px;
+    padding: 20px;
+    position: relative;
+    background-color: #020b08;
+    display: flex;
+    flex-direction: column;
+}
+.terminal-container::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 10;
+    background-size: 100% 4px, 6px 100%;
+    pointer-events: none;
+}
+.output-history {
+    flex: 1;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    margin-bottom: 10px;
+    padding-right: 5px;
+    font-size: 1.1rem;
+    line-height: 1.4;
+}
+.output-history::-webkit-scrollbar {
+    width: 6px;
+}
+.output-history::-webkit-scrollbar-thumb {
+    background: #005544;
+    border-radius: 3px;
+}
+.input-line {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #003322;
+    padding-top: 10px;
+}
+.prompt-symbol {
+    font-weight: bold;
+    margin-right: 10px;
+    font-size: 1.2rem;
+    user-select: none;
+}
+.terminal-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #00ffcc;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.1rem;
+    outline: none;
+    caret-color: #00ffcc;
+}
+/* Glitch Flash Screen Animation */
+.glitch-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0, 255, 204, 0.15);
+    z-index: 99;
+    pointer-events: none;
+    display: none;
+}
+@keyframes flash-trigger {
+    0% { opacity: 0; background: #00ffcc; }
+    15% { opacity: 1; background: rgba(0, 50, 40, 0.9); }
+    30% { opacity: 0.4; }
+    45% { opacity: 1; background: #111; }
+    60% { opacity: 0.2; }
+    80% { opacity: 0.8; }
+    100% { opacity: 0; display: none; }
+}
+.active-glitch {
+    display: block;
+    animation: flash-trigger 0.45s ease-out forwards;
+}
+/* Popup Window Setup */
+.popup-window {
+    position: absolute;
+    top: 5%; left: 5%; width: 90%; height: 90%;
+    background: #050505;
+    border: 2px solid #00ffcc;
+    z-index: 20;
+    display: none;
+    flex-direction: column;
+    box-shadow: 0 0 30px rgba(0,255,204,0.3);
+}
+.popup-header {
+    background: #004433;
+    color: #fff;
+    padding: 6px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #00ffcc;
+}
+.popup-close {
+    cursor: pointer;
+    background: #880000;
+    border: 1px solid #ff3333;
+    color: white;
+    font-weight: bold;
+    padding: 2px 8px;
+}
+.popup-body {
+    flex: 1;
+    padding: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background: #000;
+}
+.code-tabs {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #003322;
+    padding-bottom: 5px;
+}
+.tab-btn {
+    background: #02110c;
+    border: 1px solid #005544;
+    color: #00aa88;
+    padding: 4px 12px;
+    cursor: pointer;
+    font-family: inherit;
+}
+.tab-btn.active {
+    background: #005544;
+    color: #00ffcc;
+    border-color: #00ffcc;
+}
+.code-pane {
+    flex: 1;
+    margin: 0;
+    overflow-y: auto;
+    font-size: 0.8rem;
+    color: #33ffaa;
+    white-space: pre-wrap;
+    display: none;
+    line-height: 1.3;
+}
+.code-pane.active {
+    display: block;
+}
