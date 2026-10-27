@@ -15,7 +15,7 @@ body {
 .terminal-container {
     width: 90%;
     max-width: 800px;
-    height: 80%;
+    height: 85%;
     border: 2px solid #005544;
     box-shadow: 0 0 20px #003322;
     border-radius: 8px;
@@ -51,6 +51,15 @@ body {
     background: #005544;
     border-radius: 3px;
 }
+/* Galaga Canvas styling */
+#galaga-canvas {
+    display: none;
+    border: 1px solid #005544;
+    background: #000;
+    margin-bottom: 10px;
+    width: 100%;
+    height: 220px;
+}
 .input-line {
     display: flex;
     align-items: center;
@@ -77,23 +86,23 @@ body {
 .glitch-overlay {
     position: fixed;
     top: 0; left: 0; width: 100vw; height: 100vh;
-    background: rgba(0, 255, 204, 0.15);
+    background: rgba(0, 255, 204, 0.25);
     z-index: 99;
     pointer-events: none;
     display: none;
 }
 @keyframes flash-trigger {
     0% { opacity: 0; background: #00ffcc; }
-    15% { opacity: 1; background: rgba(0, 50, 40, 0.9); }
+    15% { opacity: 1; background: rgba(0, 80, 60, 0.9); }
     30% { opacity: 0.4; }
-    45% { opacity: 1; background: #111; }
+    45% { opacity: 1; background: #051a14; }
     60% { opacity: 0.2; }
     80% { opacity: 0.8; }
     100% { opacity: 0; display: none; }
 }
 .active-glitch {
     display: block;
-    animation: flash-trigger 0.45s ease-out forwards;
+    animation: flash-trigger 0.4s ease-out forwards;
 }
 /* Popup Window Setup */
 .popup-window {
